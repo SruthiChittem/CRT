@@ -1,64 +1,47 @@
-class Node {
-    int val;
-    Node left, right;
+class TreeNode {
+    int value;
+    TreeNode left, right;
 
-    public Node(int item) {
-        val = item;
-        left = right = null;
+    public TreeNode(int value) {
+        this.value = value;
+        left = null;
+        right = null;
     }
 }
-
 public class BinaryTree1 {
-    Node root;
-
-    // Inorder traversal: left -> root -> right
-    void inorder(Node node) {
-        if (node == null)
+    public void inorderTraversal(TreeNode root) {
+        if (root == null) {
             return;
-
-        inorder(node.left);
-        System.out.print(node.val + " ");
-        inorder(node.right);
-    }
-
-    // Postorder traversal: left -> right -> root
-    void postorder(Node node) {
-        if (node == null)
-            return;
-
-        postorder(node.left);
-        postorder(node.right);
-        System.out.print(node.val + " ");
-    }
-
-    // Method to count total number of nodes in the tree
-    int countNodes(Node node) {
-        if (node == null) {
-            return 0; // Base case: If the node is null, there are no nodes
         }
-        // Count this node + count nodes in the left subtree + count nodes in the right subtree
-        return 1 + countNodes(node.left) + countNodes(node.right);
+        inorderTraversal(root.left);  // Visit left subtree
+        System.out.print(root.value + " ");  // Visit root
+        inorderTraversal(root.right);  // Visit right subtree
     }
-
+    public void postorderTraversal(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        postorderTraversal(root.left);  // Visit left subtree
+        postorderTraversal(root.right);  // Visit right subtree
+        System.out.print(root.value + " ");  // Visit root
+    }
     public static void main(String[] args) {
-        BinaryTree tree = new BinaryTree();
-       
-        tree.root = new Node(1);
-        tree.root.left = new Node(2);
-        tree.root.right = new Node(3);
-        tree.root.left.left = new Node(4);
-        tree.root.left.right = new Node(5);
+        // Create a simple binary tree
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
 
-        System.out.print("Inorder traversal: ");
-        tree.inorder(tree.root);
-        System.out.println();
-
-        System.out.print("Postorder traversal: ");
-        tree.postorder(tree.root);
-        System.out.println();
-
-        // Counting nodes in the tree
-        int totalNodes = tree.countNodes(tree.root);
-        System.out.println("Total number of nodes in the tree: " + totalNodes);
+        BinaryTree1 tree = new BinaryTree1();
+        
+        // Inorder Traversal
+        System.out.print("Inorder Traversal: ");
+        tree.inorderTraversal(root);  // Output: 4 2 5 1 3
+        System.out.println();  // For newline
+        
+        // Postorder Traversal
+        System.out.print("Postorder Traversal: ");
+        tree.postorderTraversal(root);  // Output: 4 5 2 3 1
     }
 }
